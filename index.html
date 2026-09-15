@@ -1,0 +1,2577 @@
+
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>GasSafe - Keamanan Gas & Energi</title>
+
+<style>
+
+/* =========================
+   DASAR
+========================= */
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    scroll-behavior:smooth;
+}
+
+body{
+    font-family:Arial, sans-serif;
+    background:#f5f7fa;
+    color:#222;
+    transition:.3s;
+}
+
+section{
+    padding:70px 7%;
+}
+
+button{
+    cursor:pointer;
+}
+
+/* =========================
+   NAVBAR
+========================= */
+
+nav{
+    position:sticky;
+    top:0;
+    z-index:999;
+
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+
+    padding:15px 7%;
+
+    background:white;
+
+    box-shadow:0 2px 10px rgba(0,0,0,.1);
+}
+
+.logo{
+    font-size:24px;
+    font-weight:bold;
+    color:#e63946;
+}
+
+nav ul{
+    display:flex;
+    gap:20px;
+    list-style:none;
+}
+
+nav a{
+    color:#222;
+    text-decoration:none;
+    font-weight:bold;
+}
+
+nav a:hover{
+    color:#e63946;
+}
+
+.dark-btn{
+    border:none;
+    padding:9px 12px;
+    border-radius:8px;
+    background:#222;
+    color:white;
+}
+
+/* =========================
+   HERO
+========================= */
+
+.hero{
+    min-height:80vh;
+
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+
+    text-align:center;
+
+    background:linear-gradient(
+        135deg,
+        #fff3cd,
+        #ffe5e5
+    );
+}
+
+.hero h1{
+    font-size:55px;
+    color:#d62828;
+    margin-bottom:15px;
+}
+
+.hero p{
+    max-width:700px;
+    line-height:1.7;
+    font-size:18px;
+}
+
+.hero button{
+    margin-top:25px;
+    padding:14px 25px;
+
+    border:none;
+    border-radius:10px;
+
+    background:#e63946;
+    color:white;
+
+    font-size:16px;
+}
+
+/* =========================
+   JUDUL
+========================= */
+
+.title{
+    text-align:center;
+    margin-bottom:40px;
+}
+
+.title h2{
+    font-size:32px;
+    margin-bottom:10px;
+}
+
+.title p{
+    color:#666;
+}
+
+/* =========================
+   CARD
+========================= */
+
+.cards{
+    display:grid;
+    grid-template-columns:
+        repeat(auto-fit,minmax(220px,1fr));
+
+    gap:20px;
+}
+
+.card{
+    background:white;
+    padding:25px;
+
+    border-radius:15px;
+
+    box-shadow:
+        0 5px 15px rgba(0,0,0,.08);
+
+    transition:.3s;
+}
+
+.card:hover{
+    transform:translateY(-5px);
+}
+
+.card h3{
+    margin-bottom:12px;
+}
+
+.card p{
+    line-height:1.6;
+    color:#555;
+}
+
+/* =========================
+   DASHBOARD
+========================= */
+
+.dashboard{
+    display:grid;
+
+    grid-template-columns:
+        repeat(auto-fit,minmax(180px,1fr));
+
+    gap:20px;
+}
+
+.stat{
+    padding:25px;
+
+    background:white;
+
+    border-radius:15px;
+
+    text-align:center;
+
+    box-shadow:
+        0 5px 15px rgba(0,0,0,.08);
+}
+
+.stat-number{
+    font-size:35px;
+    font-weight:bold;
+    color:#e63946;
+    margin:10px 0;
+}
+
+/* =========================
+   CEK RISIKO
+========================= */
+
+.risk-box{
+    max-width:800px;
+    margin:auto;
+
+    background:white;
+
+    padding:30px;
+
+    border-radius:15px;
+
+    box-shadow:
+        0 5px 15px rgba(0,0,0,.08);
+}
+
+.risk-question{
+    margin:25px 0;
+}
+
+.risk-question label{
+    display:block;
+    margin:10px 0;
+}
+
+.check-risk-btn{
+    padding:13px 20px;
+
+    border:none;
+    border-radius:8px;
+
+    background:#e63946;
+    color:white;
+
+    font-weight:bold;
+}
+
+#riskResult{
+    margin-top:25px;
+    padding:20px;
+
+    border-radius:10px;
+
+    display:none;
+}
+
+/* =========================
+   HARGA
+========================= */
+
+.price-controls{
+    display:flex;
+    justify-content:center;
+    gap:10px;
+    margin-bottom:20px;
+}
+
+.update-btn{
+    padding:12px 20px;
+
+    border:none;
+    border-radius:8px;
+
+    background:#198754;
+    color:white;
+
+    font-weight:bold;
+}
+
+#lastUpdate{
+    text-align:center;
+    color:#666;
+    margin-bottom:25px;
+}
+
+.price-card{
+    text-align:center;
+}
+
+.gas-image{
+    width:140px;
+    height:150px;
+
+    object-fit:contain;
+
+    display:block;
+
+    margin:0 auto 15px;
+
+    transition:.3s;
+}
+
+.gas-image:hover{
+    transform:scale(1.08);
+}
+
+.price{
+    font-size:27px;
+    font-weight:bold;
+
+    color:#e63946;
+
+    margin:15px 0;
+}
+
+.source{
+    margin-top:15px;
+    font-size:13px;
+    color:#777;
+}
+
+.source a{
+    color:#0077b6;
+    font-weight:bold;
+    text-decoration:none;
+}
+
+/* =========================
+   GRAFIK
+========================= */
+
+.chart{
+    max-width:800px;
+    height:300px;
+
+    margin:40px auto;
+
+    display:flex;
+    align-items:end;
+    justify-content:space-around;
+
+    background:white;
+
+    padding:20px;
+
+    border-radius:15px;
+
+    box-shadow:
+        0 5px 15px rgba(0,0,0,.08);
+}
+
+.bar-container{
+    height:100%;
+
+    display:flex;
+    flex-direction:column;
+    justify-content:end;
+    align-items:center;
+}
+
+.bar{
+    width:60px;
+
+    background:#e63946;
+
+    border-radius:8px 8px 0 0;
+
+    transition:.8s;
+}
+
+.bar-label{
+    margin-top:8px;
+    font-weight:bold;
+}
+
+/* =========================
+   CHECKLIST
+========================= */
+
+.checklist{
+    max-width:750px;
+    margin:auto;
+
+    background:white;
+
+    padding:30px;
+
+    border-radius:15px;
+
+    box-shadow:
+        0 5px 15px rgba(0,0,0,.08);
+}
+
+.check-item{
+    margin:18px 0;
+}
+
+.check-item input{
+    margin-right:8px;
+}
+
+.progress-box{
+    margin-top:25px;
+
+    height:20px;
+
+    background:#ddd;
+
+    border-radius:20px;
+
+    overflow:hidden;
+}
+
+#progressBar{
+    width:0%;
+    height:100%;
+
+    background:#2a9d8f;
+
+    transition:.4s;
+}
+
+#progressText{
+    text-align:center;
+    margin-top:10px;
+    font-weight:bold;
+}
+
+/* =========================
+   PENGINGAT
+========================= */
+
+.reminder{
+    max-width:600px;
+    margin:auto;
+
+    text-align:center;
+
+    background:white;
+
+    padding:30px;
+
+    border-radius:15px;
+
+    box-shadow:
+        0 5px 15px rgba(0,0,0,.08);
+}
+
+.reminder input{
+    padding:12px;
+
+    border:1px solid #ccc;
+
+    border-radius:8px;
+
+    margin:10px;
+}
+
+.reminder button{
+    padding:12px 20px;
+
+    border:none;
+
+    border-radius:8px;
+
+    background:#0077b6;
+
+    color:white;
+}
+
+#reminderResult{
+    margin-top:20px;
+    font-weight:bold;
+}
+
+/* =========================
+   KUIS
+========================= */
+
+.quiz{
+    max-width:750px;
+    margin:auto;
+
+    background:white;
+
+    padding:30px;
+
+    border-radius:15px;
+
+    box-shadow:
+        0 5px 15px rgba(0,0,0,.08);
+}
+
+.quiz-question{
+    margin-bottom:30px;
+}
+
+.quiz-question button{
+    display:block;
+
+    width:100%;
+
+    margin-top:10px;
+
+    padding:12px;
+
+    text-align:left;
+
+    background:white;
+
+    border:1px solid #ddd;
+
+    border-radius:8px;
+}
+
+.quiz-question button:hover{
+    background:#f1f1f1;
+}
+
+#quizResult{
+    margin-top:20px;
+
+    text-align:center;
+
+    font-size:20px;
+
+    font-weight:bold;
+}
+
+/* =========================
+   BADGE
+========================= */
+
+.badge-box{
+    display:grid;
+
+    grid-template-columns:
+        repeat(auto-fit,minmax(180px,1fr));
+
+    gap:20px;
+}
+
+.badge{
+    text-align:center;
+
+    background:white;
+
+    padding:25px;
+
+    border-radius:15px;
+
+    box-shadow:
+        0 5px 15px rgba(0,0,0,.08);
+
+    opacity:.35;
+}
+
+.badge.active{
+    opacity:1;
+
+    transform:scale(1.03);
+
+    border:2px solid #ffc107;
+}
+
+.badge-icon{
+    font-size:45px;
+    margin-bottom:10px;
+}
+
+/* =========================
+   PANDUAN
+========================= */
+
+.warning{
+    margin-top:30px;
+
+    background:#fff3cd;
+
+    border-left:6px solid #ffc107;
+
+    padding:25px;
+
+    border-radius:10px;
+
+    line-height:1.7;
+}
+
+/* =========================
+   FOOTER
+========================= */
+
+footer{
+    background:#222;
+    color:white;
+
+    text-align:center;
+
+    padding:30px;
+}
+
+/* =========================
+   DARK MODE
+========================= */
+
+body.dark{
+    background:#121212;
+    color:white;
+}
+
+body.dark nav,
+body.dark .card,
+body.dark .stat,
+body.dark .risk-box,
+body.dark .chart,
+body.dark .checklist,
+body.dark .reminder,
+body.dark .quiz,
+body.dark .badge{
+    background:#1e1e1e;
+    color:white;
+}
+
+body.dark nav a{
+    color:white;
+}
+
+body.dark .card p,
+body.dark .title p,
+body.dark #lastUpdate,
+body.dark .source{
+    color:#bbb;
+}
+
+body.dark .quiz-question button{
+    background:#292929;
+    color:white;
+    border-color:#444;
+}
+
+/* =========================
+   MOBILE
+========================= */
+
+@media(max-width:700px){
+
+    nav{
+        flex-direction:column;
+        gap:15px;
+    }
+
+    nav ul{
+        flex-wrap:wrap;
+        justify-content:center;
+    }
+
+    .hero h1{
+        font-size:40px;
+    }
+
+    .hero p{
+        font-size:16px;
+    }
+
+    .bar{
+        width:40px;
+    }
+
+}
+
+</style>
+</head>
+
+
+<body>
+
+
+<!-- =========================
+     NAVBAR
+========================= -->
+
+<nav>
+
+<div class="logo">
+🔥 GasSafe
+</div>
+
+<ul>
+
+<li>
+<a href="#home">Home</a>
+</li>
+
+<li>
+<a href="#dashboard">Dashboard</a>
+</li>
+
+<li>
+<a href="#risiko">Cek Risiko</a>
+</li>
+
+<li>
+<a href="#harga">Harga</a>
+</li>
+
+<li>
+<a href="#checklist">Checklist</a>
+</li>
+
+<li>
+<a href="#kuis">Kuis</a>
+</li>
+
+</ul>
+
+<button
+class="dark-btn"
+onclick="toggleDark()">
+
+🌙
+
+</button>
+
+</nav>
+
+
+<!-- =========================
+     HOME
+========================= -->
+
+<section
+class="hero"
+id="home">
+
+<h1>
+GasSafe 🔥
+</h1>
+
+<p>
+
+Website edukasi keamanan gas dan energi
+untuk membantu pengguna mengenali risiko,
+memantau informasi harga, melakukan checklist,
+dan meningkatkan pengetahuan tentang keselamatan.
+
+</p>
+
+<button
+onclick="location.href='#risiko'">
+
+Mulai Cek Risiko
+
+</button>
+
+</section>
+
+
+<!-- =========================
+     DASHBOARD
+========================= -->
+
+<section id="dashboard">
+
+<div class="title">
+
+<h2>
+👤 Dashboard
+</h2>
+
+<p>
+Ringkasan aktivitas kamu di GasSafe.
+</p>
+
+</div>
+
+
+<div class="dashboard">
+
+
+<div class="stat">
+
+<h3>
+🔥 Pemeriksaan
+</h3>
+
+<div
+class="stat-number"
+id="checkCount">
+
+0
+
+</div>
+
+<p>
+Kali melakukan pemeriksaan
+</p>
+
+</div>
+
+
+<div class="stat">
+
+<h3>
+✅ Checklist
+</h3>
+
+<div
+class="stat-number"
+id="checkPercent">
+
+0%
+
+</div>
+
+<p>
+Progress keamanan
+</p>
+
+</div>
+
+
+<div class="stat">
+
+<h3>
+🧠 Skor Kuis
+</h3>
+
+<div
+class="stat-number"
+id="quizScore">
+
+-
+
+</div>
+
+<p>
+Skor terakhir
+</p>
+
+</div>
+
+
+<div class="stat">
+
+<h3>
+🏆 Badge
+</h3>
+
+<div
+class="stat-number"
+id="badgeCount">
+
+0
+
+</div>
+
+<p>
+Badge diperoleh
+</p>
+
+</div>
+
+
+</div>
+
+</section>
+
+
+<!-- =========================
+     CEK RISIKO
+========================= -->
+
+<section id="risiko">
+
+<div class="title">
+
+<h2>
+🔥 Gas Leak Risk Checker
+</h2>
+
+<p>
+Jawab pertanyaan berikut untuk mendapatkan
+penilaian edukatif.
+</p>
+
+</div>
+
+
+<div class="risk-box">
+
+
+<div class="risk-question">
+
+<h3>
+1. Apakah area penyimpanan memiliki ventilasi?
+</h3>
+
+<label>
+<input
+type="radio"
+name="q1"
+value="yes">
+
+Ya
+
+</label>
+
+<label>
+<input
+type="radio"
+name="q1"
+value="no">
+
+Tidak / kurang baik
+
+</label>
+
+</div>
+
+
+<div class="risk-question">
+
+<h3>
+2. Apakah kondisi selang terlihat baik?
+</h3>
+
+<label>
+<input
+type="radio"
+name="q2"
+value="yes">
+
+Ya
+
+</label>
+
+<label>
+<input
+type="radio"
+name="q2"
+value="no">
+
+Tidak yakin / bermasalah
+
+</label>
+
+</div>
+
+
+<div class="risk-question">
+
+<h3>
+3. Apakah area sekitar tabung bebas dari sumber panas berlebihan?
+</h3>
+
+<label>
+<input
+type="radio"
+name="q3"
+value="yes">
+
+Ya
+
+</label>
+
+<label>
+<input
+type="radio"
+name="q3"
+value="no">
+
+Tidak
+
+</label>
+
+</div>
+
+
+<button
+class="check-risk-btn"
+onclick="cekRisiko()">
+
+🔎 Periksa Risiko
+
+</button>
+
+
+<div id="riskResult"></div>
+
+</div>
+
+</section>
+
+
+<!-- =========================
+     HARGA
+========================= -->
+
+<section id="harga">
+
+<div class="title">
+
+<h2>
+💰 Harga LPG & Energi
+</h2>
+
+<p>
+Informasi harga dengan sumber data.
+</p>
+
+</div>
+
+
+<div class="price-controls">
+
+<button
+class="update-btn"
+onclick="updateHarga()">
+
+🔄 Update Harga
+
+</button>
+
+</div>
+
+
+<p id="lastUpdate">
+Belum diperbarui
+</p>
+
+
+<div class="cards">
+
+
+<!-- LPG 3 KG -->
+
+<div class="card price-card">
+
+<img
+src="Gambar/lpg3kg.jpg"
+alt="LPG 3 Kg"
+class="gas-image"
+onerror="this.style.display='none'">
+
+<h3>
+🟢 LPG 3 Kg
+</h3>
+
+<div
+class="price"
+id="lpg3">
+
+-
+
+</div>
+
+<p>
+/ tabung
+</p>
+
+<div class="source">
+
+Sumber:
+
+<br>
+
+<a
+href="https://www.pertamina.com/"
+target="_blank">
+
+Pertamina
+
+</a>
+
+</div>
+
+</div>
+
+
+<!-- LPG 5.5 KG -->
+
+<div class="card price-card">
+
+<img
+src="Gambar/lpg55kg.jpg"
+alt="Bright Gas 5.5 Kg"
+class="gas-image"
+onerror="this.style.display='none'">
+
+<h3>
+🩷 LPG 5,5 Kg
+</h3>
+
+<div
+class="price"
+id="lpg55">
+
+-
+
+</div>
+
+<p>
+/ tabung
+</p>
+
+<div class="source">
+
+Sumber:
+
+<br>
+
+<a
+href="https://www.pertamina.com/"
+target="_blank">
+
+Pertamina
+
+</a>
+
+</div>
+
+</div>
+
+
+<!-- LPG 12 KG -->
+
+<div class="card price-card">
+
+<img
+src="Gambar/lpg12kg.jpg"
+alt="LPG 12 Kg"
+class="gas-image"
+onerror="this.style.display='none'">
+
+<h3>
+⚪ LPG 12 Kg
+</h3>
+
+<div
+class="price"
+id="lpg12">
+
+-
+
+</div>
+
+<p>
+/ tabung
+</p>
+
+<div class="source">
+
+Sumber:
+
+<br>
+
+<a
+href="https://www.pertamina.com/"
+target="_blank">
+
+Pertamina
+
+</a>
+
+</div>
+
+</div>
+
+
+<!-- LISTRIK -->
+
+<div class="card price-card">
+
+<img
+src="Gambar/listrik.jpg"
+alt="Meter listrik"
+class="gas-image"
+onerror="this.style.display='none'">
+
+<h3>
+⚡ Listrik
+</h3>
+
+<div
+class="price"
+id="listrik">
+
+-
+
+</div>
+
+<p>
+/ kWh
+</p>
+
+<div class="source">
+
+Sumber:
+
+<br>
+
+<a
+href="https://www.esdm.go.id/"
+target="_blank">
+
+Kementerian ESDM
+
+</a>
+
+</div>
+
+</div>
+
+
+</div>
+
+
+<!-- GRAFIK -->
+
+<div class="title"
+style="margin-top:60px">
+
+<h2>
+📈 Perbandingan Harga
+</h2>
+
+</div>
+
+
+<div class="chart">
+
+
+<div class="bar-container">
+
+<div
+class="bar"
+id="bar3">
+</div>
+
+<div class="bar-label">
+LPG 3 Kg
+</div>
+
+</div>
+
+
+<div class="bar-container">
+
+<div
+class="bar"
+id="bar55">
+</div>
+
+<div class="bar-label">
+LPG 5,5 Kg
+</div>
+
+</div>
+
+
+<div class="bar-container">
+
+<div
+class="bar"
+id="bar12">
+</div>
+
+<div class="bar-label">
+LPG 12 Kg
+</div>
+
+</div>
+
+
+</div>
+
+
+<div class="warning">
+
+⚠️ <b>Catatan:</b>
+
+<br><br>
+
+Harga LPG dapat berbeda berdasarkan wilayah,
+jenis produk, dan tempat penjualan.
+
+Data harga pada contoh ini merupakan
+data demonstrasi. Untuk harga aktual,
+gunakan sumber resmi.
+
+</div>
+
+</section>
+
+
+<!-- =========================
+     CHECKLIST
+========================= -->
+
+<section id="checklist">
+
+<div class="title">
+
+<h2>
+✅ Checklist Keamanan
+</h2>
+
+<p>
+Periksa kondisi keamanan secara berkala.
+</p>
+
+</div>
+
+
+<div class="checklist">
+
+
+<div class="check-item">
+
+<label>
+
+<input
+type="checkbox"
+class="check">
+
+Ventilasi area cukup baik.
+
+</label>
+
+</div>
+
+
+<div class="check-item">
+
+<label>
+
+<input
+type="checkbox"
+class="check">
+
+Tabung ditempatkan dengan aman.
+
+</label>
+
+</div>
+
+
+<div class="check-item">
+
+<label>
+
+<input
+type="checkbox"
+class="check">
+
+Kondisi selang diperhatikan secara berkala.
+
+</label>
+
+</div>
+
+
+<div class="check-item">
+
+<label>
+
+<input
+type="checkbox"
+class="check">
+
+Regulator diperiksa sesuai petunjuk.
+
+</label>
+
+</div>
+
+
+<div class="check-item">
+
+<label>
+
+<input
+type="checkbox"
+class="check">
+
+Area sekitar bebas dari sumber panas berlebihan.
+
+</label>
+
+</div>
+
+
+<div class="progress-box">
+
+<div
+id="progressBar">
+</div>
+
+</div>
+
+
+<p id="progressText">
+0% selesai
+</p>
+
+
+</div>
+
+</section>
+
+
+<!-- =========================
+     PENGINGAT
+========================= -->
+
+<section>
+
+<div class="title">
+
+<h2>
+🔔 Pengingat Pemeriksaan
+</h2>
+
+<p>
+Buat pengingat sederhana untuk pemeriksaan berikutnya.
+</p>
+
+</div>
+
+
+<div class="reminder">
+
+<input
+type="date"
+id="reminderDate">
+
+
+<button
+onclick="setReminder()">
+
+🔔 Simpan Pengingat
+
+</button>
+
+
+<div id="reminderResult">
+
+Belum ada pengingat.
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- =========================
+     PANDUAN
+========================= -->
+
+<section>
+
+<div class="title">
+
+<h2>
+📚 Panduan Keamanan
+</h2>
+
+</div>
+
+
+<div class="cards">
+
+
+<div class="card">
+
+<h3>
+🌬️ Ventilasi
+</h3>
+
+<p>
+
+Pastikan area penggunaan dan penyimpanan
+memiliki sirkulasi udara yang baik.
+
+</p>
+
+</div>
+
+
+<div class="card">
+
+<h3>
+🔎 Pemeriksaan
+</h3>
+
+<p>
+
+Perhatikan kondisi peralatan dan ikuti
+petunjuk dari produsen.
+
+</p>
+
+</div>
+
+
+<div class="card">
+
+<h3>
+⚠️ Jika Tercium Bau Gas
+</h3>
+
+<p>
+
+Jangan menyalakan api atau membuat percikan.
+Jauhi area tersebut dan beri tahu orang dewasa
+atau pihak yang kompeten.
+
+</p>
+
+</div>
+
+
+<div class="card">
+
+<h3>
+📖 Sumber Resmi
+</h3>
+
+<p>
+
+Gunakan informasi dari sumber resmi pemerintah
+atau penyedia energi.
+
+</p>
+
+</div>
+
+
+</div>
+
+</section>
+
+
+<!-- =========================
+     KUIS
+========================= -->
+
+<section id="kuis">
+
+<div class="title">
+
+<h2>
+🧠 Kuis GasSafe
+</h2>
+
+<p>
+Jawab 10 pertanyaan berikut.
+</p>
+
+</div>
+
+
+<div class="quiz">
+
+
+<div class="quiz-question">
+
+<h3>
+1. Apa fungsi ventilasi?
+</h3>
+
+<button onclick="answer(1,true,this)">
+A. Membantu sirkulasi udara
+</button>
+
+<button onclick="answer(1,false,this)">
+B. Menambah tekanan gas
+</button>
+
+<button onclick="answer(1,false,this)">
+C. Mengubah warna tabung
+</button>
+
+</div>
+
+
+<div class="quiz-question">
+
+<h3>
+2. Apa yang sebaiknya dihindari ketika tercium bau gas?
+</h3>
+
+<button onclick="answer(2,true,this)">
+A. Api dan percikan
+</button>
+
+<button onclick="answer(2,false,this)">
+B. Menjauh dari area
+</button>
+
+<button onclick="answer(2,false,this)">
+C. Memberi tahu orang dewasa
+</button>
+
+</div>
+
+
+<div class="quiz-question">
+
+<h3>
+3. Informasi tarif listrik sebaiknya diperiksa dari?
+</h3>
+
+<button onclick="answer(3,true,this)">
+A. Sumber resmi
+</button>
+
+<button onclick="answer(3,false,this)">
+B. Pesan berantai
+</button>
+
+<button onclick="answer(3,false,this)">
+C. Komentar acak
+</button>
+
+</div>
+
+
+<div class="quiz-question">
+
+<h3>
+4. Apa yang harus diperhatikan pada area penyimpanan?
+</h3>
+
+<button onclick="answer(4,true,this)">
+A. Sirkulasi udara
+</button>
+
+<button onclick="answer(4,false,this)">
+B. Banyaknya dekorasi
+</button>
+
+<button onclick="answer(4,false,this)">
+C. Warna dinding
+</button>
+
+</div>
+
+
+<div class="quiz-question">
+
+<h3>
+5. Pemeriksaan peralatan sebaiknya dilakukan?
+</h3>
+
+<button onclick="answer(5,true,this)">
+A. Secara berkala sesuai petunjuk
+</button>
+
+<button onclick="answer(5,false,this)">
+B. Hanya setelah rusak
+</button>
+
+<button onclick="answer(5,false,this)">
+C. Tidak perlu
+</button>
+
+</div>
+
+
+<div class="quiz-question">
+
+<h3>
+6. Apa yang dilakukan jika kondisi peralatan diragukan?
+</h3>
+
+<button onclick="answer(6,true,this)">
+A. Minta bantuan orang dewasa/pihak kompeten
+</button>
+
+<button onclick="answer(6,false,this)">
+B. Membongkar sendiri
+</button>
+
+<button onclick="answer(6,false,this)">
+C. Mengabaikannya
+</button>
+
+</div>
+
+
+<div class="quiz-question">
+
+<h3>
+7. Data harga pada website sebaiknya memiliki?
+</h3>
+
+<button onclick="answer(7,true,this)">
+A. Sumber dan tanggal pembaruan
+</button>
+
+<button onclick="answer(7,false,this)">
+B. Warna saja
+</button>
+
+<button onclick="answer(7,false,this)">
+C. Animasi saja
+</button>
+
+</div>
+
+
+<div class="quiz-question">
+
+<h3>
+8. Apa tujuan checklist?
+</h3>
+
+<button onclick="answer(8,true,this)">
+A. Membantu mengingat pemeriksaan
+</button>
+
+<button onclick="answer(8,false,this)">
+B. Mengubah harga LPG
+</button>
+
+<button onclick="answer(8,false,this)">
+C. Mengubah tekanan gas
+</button>
+
+</div>
+
+
+<div class="quiz-question">
+
+<h3>
+9. Jika ada kondisi berbahaya, yang utama adalah?
+</h3>
+
+<button onclick="answer(9,true,this)">
+A. Mengutamakan keselamatan dan mencari bantuan
+</button>
+
+<button onclick="answer(9,false,this)">
+B. Mencoba memperbaiki sendiri
+</button>
+
+<button onclick="answer(9,false,this)">
+C. Mendekati sumber masalah
+</button>
+
+</div>
+
+
+<div class="quiz-question">
+
+<h3>
+10. GasSafe dibuat terutama untuk?
+</h3>
+
+<button onclick="answer(10,true,this)">
+A. Edukasi keamanan gas dan energi
+</button>
+
+<button onclick="answer(10,false,this)">
+B. Menjual tabung
+</button>
+
+<button onclick="answer(10,false,this)">
+C. Mengubah tarif listrik
+</button>
+
+</div>
+
+
+<div id="quizResult">
+Skor: 0 / 10
+</div>
+
+
+</div>
+
+</section>
+
+
+<!-- =========================
+     BADGE
+========================= -->
+
+<section>
+
+<div class="title">
+
+<h2>
+🏆 Badge GasSafe
+</h2>
+
+<p>
+Kumpulkan badge dengan menggunakan fitur GasSafe.
+</p>
+
+</div>
+
+
+<div class="badge-box">
+
+
+<div
+class="badge"
+id="badge1">
+
+<div class="badge-icon">
+🔥
+</div>
+
+<h3>
+Safety Beginner
+</h3>
+
+<p>
+Melakukan pemeriksaan pertama.
+</p>
+
+</div>
+
+
+<div
+class="badge"
+id="badge2">
+
+<div class="badge-icon">
+✅
+</div>
+
+<h3>
+Checklist Master
+</h3>
+
+<p>
+Menyelesaikan checklist.
+</p>
+
+</div>
+
+
+<div
+class="badge"
+id="badge3">
+
+<div class="badge-icon">
+🧠
+</div>
+
+<h3>
+GasSafe Expert
+</h3>
+
+<p>
+Mendapat skor kuis tinggi.
+</p>
+
+</div>
+
+
+<div
+class="badge"
+id="badge4">
+
+<div class="badge-icon">
+💰
+</div>
+
+<h3>
+Energy Watcher
+</h3>
+
+<p>
+Memeriksa informasi harga.
+</p>
+
+</div>
+
+
+</div>
+
+</section>
+
+
+<!-- =========================
+     FOOTER
+========================= -->
+
+<footer>
+
+<h3>
+🔥 GasSafe
+</h3>
+
+<p style="margin-top:10px">
+
+Website edukasi keamanan gas dan energi.
+
+</p>
+
+<p style="margin-top:10px">
+
+© 2026 GasSafe
+
+</p>
+
+</footer>
+
+
+<script>
+
+/* =====================================================
+   DATA HARGA
+===================================================== */
+
+const harga = {
+
+    lpg3:19000,
+
+    lpg55:105000,
+
+    lpg12:200000,
+
+    listrik:1445
+
+};
+
+
+/* =====================================================
+   FORMAT RUPIAH
+===================================================== */
+
+function rupiah(angka){
+
+    return new Intl.NumberFormat(
+        "id-ID",
+        {
+            style:"currency",
+            currency:"IDR",
+            maximumFractionDigits:0
+        }
+    ).format(angka);
+
+}
+
+
+/* =====================================================
+   UPDATE HARGA
+===================================================== */
+
+function updateHarga(){
+
+    document.getElementById("lpg3")
+        .textContent = rupiah(harga.lpg3);
+
+    document.getElementById("lpg55")
+        .textContent = rupiah(harga.lpg55);
+
+    document.getElementById("lpg12")
+        .textContent = rupiah(harga.lpg12);
+
+    document.getElementById("listrik")
+        .textContent =
+        rupiah(harga.listrik);
+
+
+    const sekarang = new Date();
+
+    document.getElementById("lastUpdate")
+        .textContent =
+        "Terakhir diperbarui: " +
+        sekarang.toLocaleDateString("id-ID") +
+        " " +
+        sekarang.toLocaleTimeString("id-ID");
+
+
+    localStorage.setItem(
+        "priceChecked",
+        "true"
+    );
+
+
+    updateChart();
+
+    updateBadges();
+
+}
+
+
+/* =====================================================
+   GRAFIK
+===================================================== */
+
+function updateChart(){
+
+    const max =
+        Math.max(
+            harga.lpg3,
+            harga.lpg55,
+            harga.lpg12
+        );
+
+
+    document.getElementById("bar3")
+        .style.height =
+        (harga.lpg3 / max * 220) + "px";
+
+
+    document.getElementById("bar55")
+        .style.height =
+        (harga.lpg55 / max * 220) + "px";
+
+
+    document.getElementById("bar12")
+        .style.height =
+        (harga.lpg12 / max * 220) + "px";
+
+}
+
+
+/* =====================================================
+   CEK RISIKO
+===================================================== */
+
+function cekRisiko(){
+
+    const q1 =
+        document.querySelector(
+            'input[name="q1"]:checked'
+        );
+
+    const q2 =
+        document.querySelector(
+            'input[name="q2"]:checked'
+        );
+
+    const q3 =
+        document.querySelector(
+            'input[name="q3"]:checked'
+        );
+
+
+    if(!q1 || !q2 || !q3){
+
+        alert(
+            "Jawab semua pertanyaan terlebih dahulu."
+        );
+
+        return;
+
+    }
+
+
+    let risiko = 0;
+
+
+    if(q1.value === "no")
+        risiko++;
+
+    if(q2.value === "no")
+        risiko++;
+
+    if(q3.value === "no")
+        risiko++;
+
+
+    const result =
+        document.getElementById("riskResult");
+
+
+    result.style.display = "block";
+
+
+    let pemeriksaan =
+        Number(
+            localStorage.getItem("checkCount") || 0
+        );
+
+
+    pemeriksaan++;
+
+
+    localStorage.setItem(
+        "checkCount",
+        pemeriksaan
+    );
+
+
+    document.getElementById(
+        "checkCount"
+    ).textContent = pemeriksaan;
+
+
+    if(risiko === 0){
+
+        result.style.background =
+            "#d1fae5";
+
+        result.style.color =
+            "#065f46";
+
+        result.innerHTML =
+        "🟢 <b>Risiko rendah berdasarkan jawabanmu.</b><br><br>" +
+        "Tetap lakukan pemeriksaan secara berkala.";
+
+    }
+
+    else if(risiko === 1){
+
+        result.style.background =
+            "#fff3cd";
+
+        result.style.color =
+            "#856404";
+
+        result.innerHTML =
+        "🟡 <b>Perlu diperhatikan.</b><br><br>" +
+        "Ada beberapa hal yang sebaiknya diperiksa kembali.";
+
+    }
+
+    else{
+
+        result.style.background =
+            "#ffe5e5";
+
+        result.style.color =
+            "#b00020";
+
+        result.innerHTML =
+        "🔴 <b>Perlu perhatian lebih.</b><br><br>" +
+        "Jangan melakukan perbaikan sendiri. " +
+        "Beri tahu orang dewasa atau pihak yang kompeten.";
+
+    }
+
+
+    updateBadges();
+
+}
+
+
+/* =====================================================
+   CHECKLIST
+===================================================== */
+
+const checklist =
+    document.querySelectorAll(".check");
+
+
+function updateChecklist(){
+
+    let selesai = 0;
+
+
+    checklist.forEach(
+        function(item,index){
+
+            if(item.checked){
+
+                selesai++;
+
+            }
+
+
+            localStorage.setItem(
+                "check_"+index,
+                item.checked
+            );
+
+        }
+    );
+
+
+    const persen =
+        Math.round(
+            selesai /
+            checklist.length *
+            100
+        );
+
+
+    document.getElementById(
+        "progressBar"
+    ).style.width =
+        persen + "%";
+
+
+    document.getElementById(
+        "progressText"
+    ).textContent =
+        persen + "% selesai";
+
+
+    document.getElementById(
+        "checkPercent"
+    ).textContent =
+        persen + "%";
+
+
+    updateBadges();
+
+}
+
+
+checklist.forEach(
+    function(item){
+
+        item.addEventListener(
+            "change",
+            updateChecklist
+        );
+
+    }
+);
+
+
+/* LOAD CHECKLIST */
+
+checklist.forEach(
+    function(item,index){
+
+        const saved =
+            localStorage.getItem(
+                "check_"+index
+            );
+
+
+        if(saved === "true"){
+
+            item.checked = true;
+
+        }
+
+    }
+);
+
+
+updateChecklist();
+
+
+/* =====================================================
+   PENGINGAT
+===================================================== */
+
+function setReminder(){
+
+    const date =
+        document.getElementById(
+            "reminderDate"
+        ).value;
+
+
+    if(!date){
+
+        alert(
+            "Pilih tanggal terlebih dahulu."
+        );
+
+        return;
+
+    }
+
+
+    localStorage.setItem(
+        "reminder",
+        date
+    );
+
+
+    showReminder();
+
+}
+
+
+function showReminder(){
+
+    const saved =
+        localStorage.getItem(
+            "reminder"
+        );
+
+
+    if(saved){
+
+        document.getElementById(
+            "reminderResult"
+        ).innerHTML =
+        "🔔 Pemeriksaan berikutnya: " +
+        new Date(saved).toLocaleDateString(
+            "id-ID"
+        );
+
+        document.getElementById(
+            "reminderDate"
+        ).value = saved;
+
+    }
+
+}
+
+
+showReminder();
+
+
+/* =====================================================
+   KUIS
+===================================================== */
+
+let quizAnswers = {};
+
+const totalSoal = 10;
+
+
+function answer(
+    nomor,
+    benar,
+    button
+){
+
+    if(
+        quizAnswers[nomor] !== undefined
+    ){
+
+        return;
+
+    }
+
+
+    quizAnswers[nomor] = benar;
+
+
+    if(benar){
+
+        button.style.background =
+            "#d1fae5";
+
+        button.style.borderColor =
+            "#2a9d8f";
+
+    }
+
+    else{
+
+        button.style.background =
+            "#ffe5e5";
+
+        button.style.borderColor =
+            "#e63946";
+
+    }
+
+
+    let score = 0;
+
+
+    Object.values(
+        quizAnswers
+    ).forEach(
+        function(value){
+
+            if(value)
+                score++;
+
+        }
+    );
+
+
+    document.getElementById(
+        "quizResult"
+    ).textContent =
+        "Skor: " +
+        score +
+        " / " +
+        totalSoal;
+
+
+    document.getElementById(
+        "quizScore"
+    ).textContent =
+        score + "/10";
+
+
+    localStorage.setItem(
+        "quizScore",
+        score
+    );
+
+
+    updateBadges();
+
+}
+
+
+/* =====================================================
+   BADGE
+===================================================== */
+
+function updateBadges(){
+
+    let badges = 0;
+
+
+    const pemeriksaan =
+        Number(
+            localStorage.getItem(
+                "checkCount"
+            ) || 0
+        );
+
+
+    const persen =
+        Number(
+            document.getElementById(
+                "checkPercent"
+            ).textContent.replace("%","")
+        );
+
+
+    const score =
+        Number(
+            localStorage.getItem(
+                "quizScore"
+            ) || 0
+        );
+
+
+    if(pemeriksaan >= 1){
+
+        document.getElementById(
+            "badge1"
+        ).classList.add("active");
+
+        badges++;
+
+    }
+
+
+    if(persen === 100){
+
+        document.getElementById(
+            "badge2"
+        ).classList.add("active");
+
+        badges++;
+
+    }
+
+
+    if(score >= 8){
+
+        document.getElementById(
+            "badge3"
+        ).classList.add("active");
+
+        badges++;
+
+    }
+
+
+    if(
+        localStorage.getItem(
+            "priceChecked"
+        ) === "true"
+    ){
+
+        document.getElementById(
+            "badge4"
+        ).classList.add("active");
+
+        badges++;
+
+    }
+
+
+    document.getElementById(
+        "badgeCount"
+    ).textContent =
+        badges;
+
+}
+
+
+/* =====================================================
+   LOAD DATA
+===================================================== */
+
+document.getElementById(
+    "checkCount"
+).textContent =
+Number(
+    localStorage.getItem(
+        "checkCount"
+    ) || 0
+);
+
+
+const savedScore =
+    localStorage.getItem(
+        "quizScore"
+    );
+
+
+if(savedScore !== null){
+
+    document.getElementById(
+        "quizScore"
+    ).textContent =
+        savedScore + "/10";
+
+}
+
+
+/* =====================================================
+   DARK MODE
+===================================================== */
+
+function toggleDark(){
+
+    document.body.classList.toggle(
+        "dark"
+    );
+
+
+    localStorage.setItem(
+        "darkMode",
+        document.body.classList.contains(
+            "dark"
+        )
+    );
+
+}
+
+
+if(
+    localStorage.getItem(
+        "darkMode"
+    ) === "true"
+){
+
+    document.body.classList.add(
+        "dark"
+    );
+
+}
+
+
+/* =====================================================
+   START
+===================================================== */
+
+updateHarga();
+
+updateBadges();
+
+</script>
+
+</body>
+</html>
